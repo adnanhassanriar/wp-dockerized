@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  wordpress:
+    image: wordpress:latest
+    container_name: wordpress
+    ports:
+      - "8080:80"
+    environment:
+      WORDPRESS_DB_HOST: docker_db
+      WORDPRESS_DB_USER: docker_user
+      WORDPRESS_DB_PASSWORD: docker_passwd
+      WORDPRESS_DB_NAME: docker_database
+    volumes:
+      - wordpress_data:/var/www/html
+  db:
+    image: mysql:5.7
+    container_name: docker_db
+    environment:
+      MYSQL_ROOT_PASSWORD: root_passwd
+      MYSQL_DATABASE: docker_database
+      MYSQL_USER: docker_user
+      MYSQL_PASSWORD: docker_passwd
+    volumes:
+      - db_data:/var/lib/mysql
+volumes:
+  wordpress_data:
+  db_data:
